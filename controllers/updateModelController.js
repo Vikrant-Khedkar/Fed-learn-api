@@ -1,6 +1,7 @@
+require('dotenv').config();
 const { Web3 } = require("web3");
-const contractAddress = "0x73511669fd4de447fed18bb79bafeac93ab7f31f"
-const web3 = new Web3("http://127.0.0.1:8545/")
+const contractAddress = "0x6bD0f414ebF27184637E66e073B9bb4c5ECd3083"
+const web3 = new Web3("https://rpc.sepolia.org/")
 const abi = require("../constants/FederatedLearningContract.json");
 const { parse } = require("dotenv");
 const contract = new web3.eth.Contract(abi.abi, contractAddress);

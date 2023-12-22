@@ -1,12 +1,12 @@
+require('dotenv').config();
 const { Web3 } = require("web3");
-const contractAddress = "0x73511669fd4de447fed18bb79bafeac93ab7f31f"
-const web3 = new Web3("http://127.0.0.1:8545/")
+const contractAddress = "0x6bD0f414ebF27184637E66e073B9bb4c5ECd3083"
+const web3 = new Web3("https://rpc.sepolia.org/")
 const abi = require("../constants/FederatedLearningContract.json");
 const { parse } = require("dotenv");
 const contract = new web3.eth.Contract(abi.abi, contractAddress);
-const privatekey = "0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80";
-const senderAccount = web3.eth.accounts.privateKeyToAccount(privatekey);
-web3.eth.accounts.wallet.add(senderAccount);
+const senderAccount = process.env.MY_ADDRESS;
+// web3.eth.accounts.wallet.add(senderAccount);
 const getModel = async (req, res) => {
     console.log("IN")
     console.log(req.body)
@@ -14,8 +14,8 @@ const getModel = async (req, res) => {
     data = [modelId]
     console.log(data)
     const JSONbig = require('json-bigint')({ "storeAsString": true });
-
-    contract.methods.getModel(...data).call({ from: senderAccount.address })
+  
+    contract.methods.getModel(...data).call({ from: senderAccount })
         .then((result) => {
             console.log(result);
 
